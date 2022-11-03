@@ -288,8 +288,6 @@ section h2 {
   display: flex;
   justify-content: space-between;
   padding: 1.5rem 1rem;
-  padding-bottom: 0;
-  padding-bottom: 0.5rem;
   position: relative;
 }
 
@@ -298,6 +296,7 @@ section h2 {
   font-size: 0.9rem;
 }
 
+/* question */
 .question-btn {
   background: transparent;
   border: transparent;
@@ -306,38 +305,32 @@ section h2 {
   transition: var(--transition);
   cursor: pointer;
 }
-.question-btn:hover {
-  transform: rotate(90deg);
+.question-btn .fa-minus-square {
+  display: none;
+}
+.question-btn.opened .fa-minus-square {
+  display: block;
+}
+.question-btn.opened .fa-plus-square {
+  display: none;
 }
 
-.question-btn-close {
-  position: absolute;
-  top: 24px;
-  right: 16px;
-  background: transparent;
-  border: transparent;
-  color: var(--gold);
-  font-size: 1.25rem;
-  transition: var(--transition);
-  cursor: pointer;
-  display: none;
+.question-btn:hover {
+  transform: rotate(90deg);
 }
 
 .question-btn-close:hover {
   transform: rotate(90deg);
 }
 
-.answer-opened {
+/* Answer */
+.answer-container {
+  padding-top: 0.5rem;
   display: none;
 }
 
-.answer-container {
-  padding-top: 0.5rem;
-  /* height: 0;
-  overflow: hidden; */
-}
-
-.show-answer {
+.answer-container.show-answer {
+  display: block;
 }
 
 .underline {
