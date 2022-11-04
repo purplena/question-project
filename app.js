@@ -1,54 +1,43 @@
-// const getElement = (selector, list) => {
-//   const el = list
-//     ? [...document.querySelectorAll(selector)]
-//     : document.querySelector(selector);
-
-//   // check if only one element
-//   if (list && el.length === 1) return el[0];
-//   // check if list is not empty
-//   if (list && el.length > 0) return el;
-//   // if not a list and element exists
-//   if (!list && el) return el;
-//   throw new Error(`Please double check the ${selector}`);
-// };
-
-// traversing the dom
-// const btns = getElement('.question-btn', true);
-
-// btns.forEach(function (btn) {
-//   btn.addEventListener('click', function (e) {
-//     const question = e.currentTarget.parentElement.parentElement;
-
-//     question.classList.toggle('show-text');
-//   });
-// });
-
-//my code option 1
-// const getElement = (selector) => {
-//   const el = document.querySelector(selector);
-//   if (el) return el;
-//   throw new Error(`Please check your classes : ${selector} does not exist`);
-// };
-
-// const questionBtn = getElement(".question-btn");
-// const answerContainer = getElement(".answer-container");
-
-// questionBtn.addEventListener("click", function () {
-//   answerContainer.classList.toggle("show-answer");
-// });
-
-// questionBtn.addEventListener("click", () => {
-//   answerContainer.classList.remove("show-answer");
-// });
-
-//code of Stephane
-// select button and links
 const c = console.log.bind(document);
 
-const questionBtn = document.getElementById("question-btn");
-const answerContainer = document.getElementById("answer-container");
+// Je veux pouvoir afficher et cache le div .answer-container
+// -> Je vais utiliser la prop display pour ça (toggle la classe show-answer)
+// Quand je clique sur .question-btn
+// -> Je veux changer la visibilité de .answer-container  (toggle la classe show-answer)
+// -> Je veux changer l'icone dans .question-btn  (toggle la classe opened)
 
-questionBtn.addEventListener("click", () => {
-  answerContainer.classList.toggle("show-answer");
-  questionBtn.classList.toggle("open");
-});
+// On sélectionne tous les éléments qui ont la classe .question-btn
+
+const questionsButtons = document.getElementsByClassName("question-btn");
+
+console.log(questionsButtons.length);
+
+// Je parcours chaque élément trouvé
+for (let iterationNumber = 0; iterationNumber < questionsButtons.length; iterationNumber = iterationNumber + 1) {
+  // console.log("Iteration n°" + iterationNumber);
+  console.log(questionsButtons[iterationNumber].outerHTML);
+
+  let currentElement = questionsButtons[iterationNumber];
+
+  // J'écoute les clicks
+  currentElement.addEventListener('click', function(element){
+
+    // -> Je change l'icone dans .question-btn  (toggle la classe opened)
+    element.classList.toggle('opened');
+    // Je traverse le dom à la recherche du parent le plus proche qui s'appelle "question-container".
+    // A partir de là je récupère answer-container dans les enfants
+    const answerContainer = element
+        .closest('.question-container')
+        .getElementsByClassName('answer-container');
+
+    // Je sais qu'il n'y a qu'un seul élément portant la classe answer-container,
+    // c'est pourquoi je prends le 1er élément du tableau [0]
+    // Je toggle la classe show-answer
+    answerContainer[0].classList.toggle('show-answer');
+
+  });
+}
+
+console.log(questionsButtons);
+
+
